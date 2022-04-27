@@ -1,0 +1,36 @@
+<p style="color: green"><%= notice %></p>
+<style>
+    h1 {font-family: Avenir, fantasy;}
+    h2 {font-family: Avenir, fantasy; font-size: 20px; color: white; font-weight: bold}
+    h5 {font-family: Avenir, fantasy; font-size: 20px; color: #01256e; font-weight: bold}
+    h6 {font-family: Avenir, fantasy; font-size: 17px; color: #01256e;}
+    h7 {font-family: Avenir, fantasy; font-size: 20px; font-weight: bold}
+    h9 {font-family: Avenir, fantasy; font-size: 17px; }
+    h10 {font-family: Avenir, fantasy; font-size: 17px; color:white}
+</style>
+
+<h1>Users</h1>
+<!--<p>-->
+<!--<a class="btn btn-primary" href="<%#= new_user_path %>"  role ="button"> New User </a>-->
+<!--</p>-->
+
+<div class = "row row-cols-1 row-cols-md-2">
+  <% @users.each do |user| %>
+
+    <div class="col mb-4">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <p> <h5 class="card-title mb-2"> <%= user.first_name + " " + user.last_name %>
+          <% if current_user.eql? user %>
+            (Current User)
+            <% end %>
+          </h5> </p>
+    <p>
+      <a class="btn btn-outline-primary btn-sm" href="<%= user_path(user) %>"  role ="button"> User Info </a>
+    </p>
+
+    </div>
+    </div>
+    </div>
+  <% end %>
+    </div>

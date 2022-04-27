@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @street %>
+
+<div>
+  <%= link_to "Edit this street", edit_street_path(@street) %> |
+  <%= link_to "Back to streets", streets_path %>
+
+  <%= button_to "Destroy this street", @street, method: :delete %>
+</div>

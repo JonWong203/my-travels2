@@ -1,0 +1,157 @@
+<html>
+<head>
+  <title>My Map</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+  <link rel="stylesheet" type="text/css" href="./style.css" />
+  <script type="module" src="./index.js"></script>
+</head>
+<body>
+<h3>My Maps</h3>
+<!--The div element for the map -->
+<div id="map"></div>
+<style>
+  #map{
+      height:500px;
+      width:100%;
+  }
+</style>
+<script>
+    // Initialize and add the map
+    function initMap() {
+        // Map options
+        var options = {
+            zoom: 2,
+            center : {lat: 0, lng: -30.748 }
+        }
+
+        // New Map
+        var map = new google.maps.Map(document.getElementById('map'), options);
+
+        // Add Marker
+        var marker = new google.maps.Marker({
+            position:{lat: 0, lng: -30.748},
+            map:map
+        });
+
+    }
+    function addMarker(coords){
+        var marker = new google.maps.Marker({
+            position:coords,
+            map:map
+        });
+    }
+
+    window.initMap = initMap;
+
+    let autocomplete;
+    function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+          document.getElementById("input"),
+          {
+              componentRestrictions : {'country': ['us']},
+              fields: ['geometry', 'name'],
+              types: ['street_address' | 'landmark']
+              // https://developers.google.com/maps/documentation/places/web-service/supported_types#table1
+          });
+          autocomplete.addEventListener('place_changed', () => {
+              const place = autocomplete.getPlace();
+              if (!place.geometry) {
+                  document.getElementById('input').placeholder = 'Enter a Place';
+              } else {
+                  addMarker(place.geometry.location);
+              }
+
+            });
+    }
+</script>
+<!--
+ The `defer` attribute causes the callback to execute after the full HTML
+ document has been parsed. For non-blocking uses, avoiding race conditions,
+ and consistent behavior across browsers, consider loading using Promises
+ with https://www.npmjs.com/package/@googlemaps/js-api-loader.
+-->
+<div>
+<input id="input" style="height: 75px; width: 80%;" type="text" />
+</div>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5UU8paF_r2V1m4SF_G1ugD7olOGsSICw&libraries=places&callback=initAutocomplete">
+</script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5UU8paF_r2V1m4SF_G1ugD7olOGsSICw&callback=initMap&v=weekly"
+    async defer
+>
+
+
+</script>
+
+</body>
+</html>
+
+<!--<p style="color: green"><%#= notice %></p>-->
+<!--<style>-->
+<!--    h1 {font-family: Avenir, fantasy;}-->
+<!--    h5 {font-family: Avenir, fantasy; font-size: 20px; color: #01256e; font-weight: bold}-->
+<!--    h6 {font-family: Avenir, fantasy; font-size: 17px; color: #01256e;}-->
+<!--    h7 {font-family: Avenir, fantasy; font-size: 20px; font-weight: bold}-->
+<!--    h9 {font-family: Avenir, fantasy; font-size: 17px; }-->
+<!--</style>-->
+
+<!--<h1> User Info</h1>-->
+
+<%#= render @user %>
+
+<!--<div class="col-md-12 bg-light text-right ">-->
+<!--  <h5>-->
+    <%# if current_user.eql? @user %>
+<!--      <a class="btn btn-outline-primary" href="<%#= edit_user_path(current_user) %>"  role ="button"> Edit User</a>-->
+
+<!--      button_to "Edit this user", edit_user_path(@user), method: :post  --->
+    <%# end %>
+<!--    <a class="btn btn-outline-primary" href="<%#= users_path %>"  role ="button"> Back to Users</a>-->
+<!--      </h5>-->
+
+<!--</div>-->
+
+<!--<p>-->
+<%# if @user.is_instructor %>
+<!--  <h5> Courses Teaching</h5>-->
+  <%# end %>
+<%# unless @user.is_instructor %>
+<!--  <h5> Courses Taking </h5>-->
+  <%# end %>
+<!--</p>-->
+
+<!--<div class = "row row-cols-1 row-cols-md-2">-->
+  <%# Course.all.each do |course| %>
+<!--    <div class="col mb-4">-->
+      <%# if current_user.courses.include?(course) || (course.instructor.eql? @user) %>
+
+<!--      <div class="card" style="width: 18rem;">-->
+<!--        <div class="card-body">-->
+<!--          <p> <h5 class="card-title mb-2"> <%#= course.full_code %> </h5> </p>-->
+<!--          <h6 class="card-subtitle mb-2"> <%#= course.title %> </h6>-->
+<!--          <h6 class="card-subtitle mb-2 text-muted"> <%#= course.instructor.full_name %> </h6>-->
+<!--          <p> <h9 class="card-text mb-2 text-muted"> <%#= truncate(course.description, :length => 120) %></h9> </p>-->
+
+<!--          button_to "Course Info", course_path(course)  -->
+<!--          <a class = "btn btn-outline-primary btn-sm" href=" <%#= course_path(course) %>" role="button"> Course Info </a>-->
+
+          <%# if (current_user.eql? @user) && !(course.instructor.eql? @user)  %>
+<!--            <a class ="btn btn-outline-primary btn-sm"  href="/drop_course/<%#= current_user.id %>/<%#= course.id %>"-->
+<!--               role = "button"> Drop Course </a>-->
+          <%# end %>
+          <%# if course.instructor.eql? current_user %>
+<!--            <a href="#" class="card-link">-->
+              <%#= button_to "Edit", edit_course_path(course) %>
+<!--            </a>-->
+          <%# end %>
+<!--        </div>-->
+        <%# end %>
+<!--      </div>-->
+<!--    </div>-->
+
+  <%# end %>
+<!--</div>-->
+
