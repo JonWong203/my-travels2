@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  resources :destinations
+  # resources :destinations
   resources :streets
-  resources :countries
-  get 'home/index'
+  # resources :countries
   resources :users
   root to: 'home#index'
   

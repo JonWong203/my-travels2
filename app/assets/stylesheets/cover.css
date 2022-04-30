@@ -1,0 +1,15 @@
+
+html,
+body,
+header,
+#back {
+    height:100%;
+}
+
+#back {
+    background: url(https://images.pexels.com/photos/4356144/pexels-photo-4356144.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}

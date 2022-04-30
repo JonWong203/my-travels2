@@ -1,92 +1,77 @@
 <html>
+
 <head>
   <title>My Map</title>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
   <link rel="stylesheet" type="text/css" href="./style.css" />
-  <script type="module" src="./index.js"></script>
+  <script type="module" src="index.js"></script>
 </head>
 <body>
-<h3>My Maps</h3>
-<!--The div element for the map -->
-<div id="map"></div>
-<style>
-  #map{
-      height:500px;
-      width:100%;
-  }
-</style>
+<h3> <%= @user.username %>'s Travels</h3>
+
+<input id="pac-input" class="controls" style="height: 50px; width: 80%;" type="text" placeholder="Add Travel Destination" />
+<!--<div class="input-group">-->
+<!--  <div class="form-outline">-->
+<!--    <input type="search" id="pac-input" class="form-control" />-->
+<!--    <label class="form-label" for="form1">Search</label>-->
+<!--  </div>-->
+<!--  <button type="button" class="btn btn-primary">-->
+<!--    <i class="fas fa-search"></i>-->
+<!--  </button>-->
+<!--</div>-->
+<!--<div class="main-search-input-wrap">-->
+<!--  <div class="main-search-input fl-wrap">-->
+<!--    <div class="main-search-input-item"> <input id="pac-input" type="text" value="" placeholder="Add Travel Destination"> </div> <button class="main-search-button">Search</button>-->
+<!--  </div>-->
+<!--</div>-->
+
+<%= render "streets/form" %>
+<%#= form_with model: @street do |form| %>
+<!--  <div id = "name">-->
+    <%#= form.label :street_name, style: "display: block" %>
+    <%#= form.number_field :street_name %>
+<!--  </div>-->
+<!--  <div id = "latitude">-->
+    <%#= form.label :latitude, style: "display: block" %>
+    <%#= form.number_field :latitude %>
+<!--  </div>-->
+<!--  <div id = "longitude">-->
+    <%#= form.label :longitude, style: "display: block" %>
+    <%#= form.number_field :longitude %>
+<!--  </div>-->
+<!--  <div>-->
+    <%#= form.submit %>
+<!--  </div>-->
+<%# end %>
+
+<!--<div id="name" type="text"> </div>-->
+<!--<div id="latitude" type="text" > </div>-->
+<!--<div id="longitude" type="text"> </div>-->
+
+
+
+
+
+
 <script>
-    // Initialize and add the map
-    function initMap() {
-        // Map options
-        var options = {
-            zoom: 2,
-            center : {lat: 0, lng: -30.748 }
-        }
 
-        // New Map
-        var map = new google.maps.Map(document.getElementById('map'), options);
 
-        // Add Marker
-        var marker = new google.maps.Marker({
-            position:{lat: 0, lng: -30.748},
-            map:map
-        });
-
-    }
-    function addMarker(coords){
-        var marker = new google.maps.Marker({
-            position:coords,
-            map:map
-        });
-    }
-
-    window.initMap = initMap;
-
-    let autocomplete;
-    function initAutocomplete() {
-        autocomplete = new google.maps.places.Autocomplete(
-          document.getElementById("input"),
-          {
-              componentRestrictions : {'country': ['us']},
-              fields: ['geometry', 'name'],
-              types: ['street_address' | 'landmark']
-              // https://developers.google.com/maps/documentation/places/web-service/supported_types#table1
-          });
-          autocomplete.addEventListener('place_changed', () => {
-              const place = autocomplete.getPlace();
-              if (!place.geometry) {
-                  document.getElementById('input').placeholder = 'Enter a Place';
-              } else {
-                  addMarker(place.geometry.location);
-              }
-
-            });
-    }
-</script>
-<!--
- The `defer` attribute causes the callback to execute after the full HTML
- document has been parsed. For non-blocking uses, avoiding race conditions,
- and consistent behavior across browsers, consider loading using Promises
- with https://www.npmjs.com/package/@googlemaps/js-api-loader.
--->
-<div>
-<input id="input" style="height: 75px; width: 80%;" type="text" />
-</div>
-
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5UU8paF_r2V1m4SF_G1ugD7olOGsSICw&libraries=places&callback=initAutocomplete">
-</script>
-<script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5UU8paF_r2V1m4SF_G1ugD7olOGsSICw&callback=initMap&v=weekly"
-    async defer
->
 
 
 </script>
+
+<%# street = Street.create(city: z, longitude: x, latitude: y) %>
+
+<div id="map"></div>
+
+<%= render "map" %>
+
+
+
 
 </body>
+
 </html>
 
 <!--<p style="color: green"><%#= notice %></p>-->

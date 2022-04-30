@@ -1,7 +1,11 @@
-<%= form_with(model: street) do |form| %>
-  <% if street.errors.any? %>
+<h1> Please Enter Street Info </h1>
+<div id = "name">Street Name: </div>
+<div id = "latitude">Latitude: </div>
+<div id = "longitude">Longitude: </div>
+<%= form_with model: @street do |form| %>
+  <% if @street.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(street.errors.count, "error") %> prohibited this street from being saved:</h2>
+      <h2><%= pluralize(street.errors.count, "error") %> prohibited this course from being saved:</h2>
 
       <ul>
         <% street.errors.each do |error| %>
@@ -10,28 +14,64 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :country_id, style: "display: block" %>
-    <%= form.text_field :country_id %>
-  </div>
-
-  <div>
-    <%= form.label :city, style: "display: block" %>
-    <%= form.text_field :city %>
-  </div>
-
   <div>
     <%= form.label :street_name, style: "display: block" %>
     <%= form.text_field :street_name %>
   </div>
-
   <div>
-    <%= form.label :location, style: "display: block" %>
-    <%= form.text_field :location %>
+    <%= form.label :country_name, style: "display: block" %>
+    <%= form.text_field :country_name %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.label :latitude, style: "display: block" %>
+    <%= form.text_field :latitude %>
+  </div>
+  <div>
+    <%= form.label :longitude, style: "display: block" %>
+    <%= form.text_field :longitude %>
+<!--     :value => @street.longitude-->
+  </div>
+  <div>
+    <%= form.submit "Create Street", class:"btn btn-primary"%>
   </div>
 <% end %>
+
+
+<%#= form_with(model: street) do |form| %>
+  <%# if street.errors.any? %>
+<!--    <div style="color: red">-->
+<!--      <h2><%#= pluralize(street.errors.count, "error") %> prohibited this street from being saved:</h2>-->
+
+<!--      <ul>-->
+        <%# street.errors.each do |error| %>
+<!--          <li><%#= error.full_message %></li>-->
+        <%# end %>
+<!--      </ul>-->
+<!--    </div>-->
+  <%# end %>
+
+<!--  <div>-->
+    <%#= form.label :country_id, style: "display: block" %>
+    <%#= form.text_field :country_id %>
+<!--  </div>-->
+
+<!--  <div>-->
+    <%#= form.label :city, style: "display: block" %>
+    <%#= form.text_field :city %>
+<!--  </div>-->
+
+<!--  <div>-->
+    <%#= form.label :street_name, style: "display: block" %>
+    <%#= form.text_field :street_name %>
+<!--  </div>-->
+
+<!--  <div>-->
+    <%#= form.label :location, style: "display: block" %>
+    <%#= form.text_field :location %>
+<!--  </div>-->
+
+<!--  <div>-->
+    <%#= form.submit %>
+<!--  </div>-->
+<%# end %>

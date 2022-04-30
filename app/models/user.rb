@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   require 'bcrypt'
   include BCrypt
+  has_many :destinations, dependent: :destroy
   has_many :streets, through: :destinations
 
 
