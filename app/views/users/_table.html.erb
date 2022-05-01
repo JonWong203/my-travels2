@@ -1,0 +1,19 @@
+<table class="table">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Streets</th>
+  </tr>
+  </thead>
+  <tbody>
+<%Street.all.each_with_index do |street, index| %>
+
+  <% if current_user.streets.include?(street) %>
+      <tr>
+        <th scope="row"><% index %></th>
+        <td><%= street.street_name %></td>
+      </tr>
+  <% end %>
+<% end %>
+  </tbody>
+</table>

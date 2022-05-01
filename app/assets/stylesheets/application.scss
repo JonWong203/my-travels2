@@ -31,6 +31,13 @@ $theme-colors: (
  * Custom Styles
  */
 
+table{
+  width: 100%;
+}
+table, th, td{
+  border:solid;
+
+}
 .navbar-brand {
   font-family: 'Gentium Basic', serif;
 }

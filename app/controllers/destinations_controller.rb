@@ -1,7 +1,8 @@
 class DestinationsController < ApplicationController
   before_action :set_street
-  before_action :set_user
   before_action :authenticate_user
+  before_action :set_user
+
 
   def add_street
     Destination.create({user: @user, street: @street})
@@ -68,11 +69,11 @@ class DestinationsController < ApplicationController
 
   private
     def set_street
-      @street = Street.find_by(street_name: params[:street_name])
+      @street = Street.find_by(id: params[:street_id])
     end
 
     def set_user
-      @user = User.find_by(username: params[:username])
+      @user = User.find_by(id: params[:user_id])
     end
     # # Use callbacks to share common setup or constraints between actions.
     # def set_destination

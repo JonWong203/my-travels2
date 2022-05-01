@@ -1,4 +1,5 @@
 class CountriesController < ApplicationController
+include GlobalizationByPete
   before_action :set_country, only: %i[ show edit update destroy ]
 
   # GET /countries or /countries.json
@@ -65,6 +66,6 @@ class CountriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def country_params
-      params.require(:country).permit(:name)
+      params.require(:country).permit(:name, :description, :city, :region, :country)
     end
 end

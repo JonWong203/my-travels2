@@ -2,13 +2,26 @@
 
 <h1>Streets</h1>
 
-<div id="streets">
-  <% @streets.each do |street| %>
-    <%= render street %>
-    <p>
-      <%= link_to "Show this street", street %>
-    </p>
-  <% end %>
-</div>
+<!--<div id="streets">-->
+  <%# @streets.each do |street| %>
+    <%#= render street %>
+  <%# end %>
+<!--</div>-->
 
-<%= link_to "New street", new_street_path %>
+<%#= link_to "New street", new_street_path %>
+
+
+
+<div class = "row row-cols-1 row-cols-md-2">
+  <% @streets.reverse.each do |street| %>
+
+    <div class="col mb-4">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+         <%= render street %>
+      </div>
+    </div>
+    </div>
+  <% end %>
+
+</div>

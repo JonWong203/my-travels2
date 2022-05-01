@@ -4,70 +4,11 @@
 </div>
 <style>
     #map{
-        height:500px;
+        height:700px;
         width:100%;
     }
 </style>
 <script>
-    // // Initialize and add the map
-    // function initMap() {
-    //     // Map options
-    //     var options = {
-    //         zoom: 2,
-    //         center : {lat: 0, lng: -30.748 }
-    //     }
-    //
-    //     // New Map
-    //     var map = new google.maps.Map(document.getElementById('map'), options);
-    //
-    //     // Add Marker
-    //     var marker = new google.maps.Marker({
-    //         position:{lat: 0, lng: -30.748},
-    //         map:map
-    //     });
-    //
-    // }
-    // function addMarker(coords){
-    //     var marker = new google.maps.Marker({
-    //         position:coords,
-    //         map:map
-    //     });
-    // }
-    //
-    // window.initMap = initMap;
-    //
-    // let autocomplete;
-    // function initAutocomplete() {
-    //     autocomplete = new google.maps.places.Autocomplete(
-    //         document.getElementById("input"),
-    //         {
-    //             componentRestrictions : {},
-    //             fields: ['geometry', 'name'],
-    //             types: ['street_address' | 'landmark']
-    //             // https://developers.google.com/maps/documentation/places/web-service/supported_types#table1
-    //         });
-    //     autocomplete.addEventListener('place_changed', () => {
-    //         var place = autocomplete.getPlace();
-    //         if (!place.geometry) {
-    //             document.getElementById('input').placeholder = 'Enter a Place';
-    //         } else {
-    //             addMarker(place.geometry.location);
-    //         }
-    //     });
-    // }
-    // This example adds a search box to a map, using the Google Place Autocomplete
-    // feature. People can enter geographical searches. The search box will return a
-    // pick list containing a mix of places and predicted search terms.
-    // This example requires the Places library. Include the libraries=places
-    // parameter when you first load the API. For example:
-    // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
-    function addMarker(coords){
-        var marker = new google.maps.Marker({
-            position:coords,
-            map:map
-        });
-    }
 
     function initAutocomplete() {
         const map = new google.maps.Map(document.getElementById("map"), {
@@ -75,12 +16,11 @@
             zoom: 2,
             mapTypeId: "roadmap",
         });
+
         // Create the search box and link it to the UI element.
         const input = document.getElementById("pac-input");
         const searchBox = new google.maps.places.SearchBox(input);
 
-        // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-        // Bias the SearchBox results towards current map's viewport.
         map.addListener("bounds_changed", () => {
             searchBox.setBounds(map.getBounds());
         });
@@ -91,17 +31,9 @@
         // more details for that place.
         searchBox.addListener("places_changed", () => {
             const places = searchBox.getPlaces();
-
             if (places.length == 0) {
                 return;
             }
-
-            // Clear out the old markers.
-            // markers.forEach((marker) => {
-            //     marker.setMap(null);
-            // });
-            // markers = [];
-
             // For each place, get the icon, name and location.
             const bounds = new google.maps.LatLngBounds();
 
@@ -113,12 +45,7 @@
 
                 document.getElementById('name').textContent += place.formatted_address;
                 document.getElementById('latitude').textContent += place.geometry['location'].lat();
-                document.getElementById('longitude').textContent = place.geometry['location'].lng();
-                // // setAttribute('innerText', place.name);
-                // // document.getElementById('name').value += place.name;
-                // document.getElementById('latitude').textContent = document.getElementById('latitude').textContent + place.geometry['location'].lat();
-                // document.getElementById('longitude').innerHTML += place.geometry['location'].lng();
-
+                document.getElementById('longitude').textContent += place.geometry['location'].lng();
 
                 var marker = new google.maps.Marker({
                     position: place.geometry.location,
@@ -126,23 +53,6 @@
                 });
                 markers.push(marker);
 
-                // const icon = {
-                //     url: place.icon,
-                //     size: new google.maps.Size(71, 71),
-                //     origin: new google.maps.Point(0, 0),
-                //     anchor: new google.maps.Point(17, 34),
-                //     scaledSize: new google.maps.Size(25, 25),
-                // };
-                //
-                // // Create a marker for each place.
-                // markers.push(
-                //   new google.maps.Marker({
-                //       map,
-                //       icon,
-                //       title: place.name,
-                //       position: place.geometry.location,
-                //   })
-                // );
                 if (place.geometry.viewport) {
                     // Only geocodes have viewport.
                     bounds.union(place.geometry.viewport);
@@ -152,14 +62,25 @@
             });
             map.fitBounds(bounds);
         });
+
+        let marks = [];
+        var table = document.getElementById("table"), rIndex, cIndex;
+        for (var i = 0; i  < table.rows.length; i++){
+            console.log("reached");
+            var lat = table.rows[i].cells[1].innerText;
+            var long = table.rows[i].cells[2].innerText;
+            let marker = new google.maps.Marker({
+                position: new google.maps.LatLng(lat,long),
+                map:map
+            });
+            markers.push(marker);
+        }
+
     }
+
 
     window.initAutocomplete = initAutocomplete;
 </script>
- The `defer` attribute causes the callback to execute after the full HTML
- document has been parsed. For non-blocking uses, avoiding race conditions,
- and consistent behavior across browsers, consider loading using Promises
- with https://www.npmjs.com/package/@googlemaps/js-api-loader.
 
 
 <!--<script  defer-->
@@ -172,16 +93,8 @@
 
 <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5UU8paF_r2V1m4SF_G1ugD7olOGsSICw&callback=initAutocomplete&libraries=places&v=weekly"
-    defer>
+     defer>
 </script>
-
-<p>
-<script>
-  for (let i = 0; i < markers.length; i++) {
-  var m = markers[i];
-  }
-</script>
-</p>
 
 </script>
 </html>

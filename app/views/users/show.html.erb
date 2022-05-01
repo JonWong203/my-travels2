@@ -8,25 +8,70 @@
   <script type="module" src="index.js"></script>
 </head>
 <body>
-<h3> <%= @user.username %>'s Travels</h3>
+<h1> <%= @user.full_name %>'s Travels</h1>
+
+<table id="table">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">Streets</th>
+    <th scope="col">Latitude</th>
+    <th scope="col">Longitude</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <% Street.all.each_with_index do |street, index| %>
+
+    <% if @user.streets.include?(street) %>
+      <tr>
+        <td><%= street.street_name %></td>
+        <td><%= street.latitude %></td>
+        <td><%= street.longitude %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  </table>
+
+
+
+
+
+
+<!--  <div id="map">-->
+<!--  </div>-->
+<!--<script-->
+<!--  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5UU8paF_r2V1m4SF_G1ugD7olOGsSICw&callback=initAutocomplete&libraries=places&v=weekly"-->
+<!--  defer>-->
+<!--</script>-->
+<br>
+  <%= render "map" %>
+<br>
 
 <input id="pac-input" class="controls" style="height: 50px; width: 80%;" type="text" placeholder="Add Travel Destination" />
-<!--<div class="input-group">-->
-<!--  <div class="form-outline">-->
-<!--    <input type="search" id="pac-input" class="form-control" />-->
-<!--    <label class="form-label" for="form1">Search</label>-->
-<!--  </div>-->
-<!--  <button type="button" class="btn btn-primary">-->
-<!--    <i class="fas fa-search"></i>-->
-<!--  </button>-->
-<!--</div>-->
-<!--<div class="main-search-input-wrap">-->
-<!--  <div class="main-search-input fl-wrap">-->
-<!--    <div class="main-search-input-item"> <input id="pac-input" type="text" value="" placeholder="Add Travel Destination"> </div> <button class="main-search-button">Search</button>-->
-<!--  </div>-->
-<!--</div>-->
+  <%= render "streets/form", street: @street %>
 
-<%= render "streets/form" %>
+
+  <script>
+    // var table = document.getElementById("table"), rIndex, cIndex;
+    // for (var i = 0; i  < table.rows.length; i++){
+    //     table.rows[i][1]
+    //     for (var j = 0; j < table.rows[i].cells.length; j++){
+    //
+    //     }
+    // }
+  </script>
+
+  <%# @user.streets do |street, index| %>
+
+<!--      <tr>-->
+<!--        <th scope="row"><%# index %></th>-->
+<!--        <td><%#= street.street_name %></td>-->
+<!--      </tr>-->
+  <%# end %>
+  </tbody>
+</table>
+
+<% render "table" %>
 <%#= form_with model: @street do |form| %>
 <!--  <div id = "name">-->
     <%#= form.label :street_name, style: "display: block" %>
@@ -63,9 +108,6 @@
 
 <%# street = Street.create(city: z, longitude: x, latitude: y) %>
 
-<div id="map"></div>
-
-<%= render "map" %>
 
 
 
@@ -109,16 +151,14 @@
 <!--</p>-->
 
 <!--<div class = "row row-cols-1 row-cols-md-2">-->
-  <%# Course.all.each do |course| %>
+  <%# Street.all.each do |course| %>
 <!--    <div class="col mb-4">-->
-      <%# if current_user.courses.include?(course) || (course.instructor.eql? @user) %>
+      <%# if current_user.streets.include?(course) %>
 
 <!--      <div class="card" style="width: 18rem;">-->
 <!--        <div class="card-body">-->
-<!--          <p> <h5 class="card-title mb-2"> <%#= course.full_code %> </h5> </p>-->
-<!--          <h6 class="card-subtitle mb-2"> <%#= course.title %> </h6>-->
-<!--          <h6 class="card-subtitle mb-2 text-muted"> <%#= course.instructor.full_name %> </h6>-->
-<!--          <p> <h9 class="card-text mb-2 text-muted"> <%#= truncate(course.description, :length => 120) %></h9> </p>-->
+<!--          <p> <h5 class="card-title mb-2"> <%#= street.street_name %> </h5> </p>-->
+
 
 <!--          button_to "Course Info", course_path(course)  -->
 <!--          <a class = "btn btn-outline-primary btn-sm" href=" <%#= course_path(course) %>" role="button"> Course Info </a>-->

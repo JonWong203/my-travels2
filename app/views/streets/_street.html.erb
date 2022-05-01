@@ -1,22 +1,18 @@
 <div id="<%= dom_id street %>">
-  <p>
-    <strong>Country:</strong>
-    <%= street.country_id %>
-  </p>
-
-  <p>
-    <strong>City:</strong>
-    <%= street.city %>
-  </p>
+<!--  <p>-->
+<!--    <strong>Country:</strong>-->
+    <%#= street.country_id %>
+<!--  </p>-->
 
   <p>
     <strong>Street name:</strong>
-    <%= street.street_name %>
+    <h5><%= street.street_name %></h5>
+    <% if current_user.streets.include?(street) %>
+    <p> <weak> Already in My Streets </weak></p>
+      <% else %>
+      <%=button_to "Add Street To My Travels", "/add_street/#{current_user.id}/#{street.id}", :method => :post,  class:"btn btn-primary btn-sm" %>
+    <%end %>
   </p>
 
-  <p>
-    <strong>Location:</strong>
-    <%= street.location %>
-  </p>
 
 </div>

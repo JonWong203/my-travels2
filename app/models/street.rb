@@ -1,6 +1,6 @@
 class Street < ApplicationRecord
   belongs_to :country
-  has_one :country
+  # has_one :country
   has_many :destinations, dependent: :destroy
   has_many :users, through: :destinations
 

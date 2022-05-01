@@ -1,6 +1,8 @@
 class StreetsController < ApplicationController
   before_action :set_street
-  skip_before_action :verify_authenticity_token
+  before_action :authenticate_user
+
+  # skip_before_action :verify_authenticity_token
   # GET /streets or /streets.json
   def index
     @streets = Street.all
@@ -24,22 +26,23 @@ class StreetsController < ApplicationController
   def create
     @street = Street.new(street_params)
     # @street.user_id = params[:street][:user_id]
-    #
-    #    if @street.save
-    #      puts("Street created successfully")
-    #      flash[:alert] = "Successfully added!"
-    #      # render text: @street.street_name
-    #    end
-    respond_to do |format|
-      if @street.save
-        @current_user = current_user
-        format.html { redirect_to street_url(@street), notice: "Street was successfully created." }
-        format.json { render :show, status: :created, location: @street }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @street.errors, status: :unprocessable_entity }
-      end
-    end
+
+       if @street.save
+         @current_user = current_user
+         flash[:notice] = "Successfully added!"
+
+         # render text: @street.street_name
+       end
+    # respond_to do |format|
+    #   if @street.save
+    #     @current_user = current_user
+    #     format.html { redirect_to street_url(@street), notice: "Street was successfully created." }
+    #     format.json { render :show, status: :created, location: @street }
+    #   else
+    #     format.html { render :new, status: :unprocessable_entity }
+    #     format.json { render json: @street.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /streets/1 or /streets/1.json
@@ -79,6 +82,8 @@ class StreetsController < ApplicationController
   end
 
   private
+
+
     # Use callbacks to share common setup or constraints between actions.
     def set_street
       @street = Street.find_by(street_name: params[:street_name])
